@@ -33,8 +33,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
         select.appendChild(option);
     })
 
-// Récupération des données sélectionnées par l'utilisateur pour l'envoi vers le panier
-
+// Récupération des données choisie par l'utilisateur pour l'envoi vers le panier
     const selectBoutonPanier = document.querySelector("#addToCart");
         selectBoutonPanier.addEventListener("click", (event)=>{
             event.preventDefault();
