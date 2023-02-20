@@ -4,10 +4,11 @@ const productId = new URLSearchParams(window.location.search).get("id");
 
 if (productId !== null) {
   // Récupération des données du produit depuis l'API
+  let chosenProduct;
   fetch(`http://localhost:3000/api/products/${productId}`)
     .then(response => response.json())
     .then(data => {
-      const chosenProduct = data; // stocker les données du produit dans la variable chosenProduct
+     chosenProduct = data; // stocker les données du produit dans la variable chosenProduct
       console.log(chosenProduct); // afficher les données du produit dans la console
 
       // Mise à jour de la page du produit avec les détails du produit sélectionné
@@ -55,13 +56,13 @@ selectPanierButton.addEventListener("click", (event)=>{
  let colorId = document.getElementById('colors');
 
  //récupérer la couleur sélectionnée par l'utilisateur et la mettre dans une variable pour étre réutiliser aprés
- chosencolor= colorId.value;
+ let ColorChosen = colorId.value;
 
  //sélectionner l'élément HTML correspondant à la quantité choisie par l'utilisateur pour un produit à l'aide de l"id"
  //création d'une variable "quantity" pour le réferencer dans le code js
  // LA VALEUR CHOISIE va etre stocker dans la variable "Quantitychosen" après avoir été convertie en un nombre à l'aide de la fonction "Number()
 
- const quantity = document.getElementById("#quantity")
+ const quantity = document.getElementById('quantity');
   Quantitychosen = Number(quantity.value);
  console.log(Quantitychosen);
 // une autre alternative pour cette partie (quantity) serait la parseInt pour transformer les chaine de caractére en nombre
@@ -71,13 +72,13 @@ selectPanierButton.addEventListener("click", (event)=>{
  // ces données seront utiliser pour commander ou mettre à jours les info stockés
  //en vérifiant que la couleur est sélectionnée, que la quantité est comprise entre 1 et 100 et qu'elle est un nombre entier 
 
- if (choiceColor && choiceQuantity > 0 && choiceQuantity <= 100 && Number.isInteger(choiceQuantity)) {
+ if (ColorChosen && Quantitychosen > 0 && Quantitychosen <= 100 && Number.isInteger(Quantitychosen)) {
   const Productchoices = {
-    idProduct: chosenProduct._id,
-    colorProduct: Colorchosen,
+    chosenProduct: productId,
+    colorProduct: ColorChosen,
     quantityProduct: Quantitychosen
   }
-  console.log(Productchoises);
+  console.log(Productchoices);
   // utilisation du local storage (objet js pour stocker les données avec clé/valeur)
   //En créant une variable "LocalStorageNotification" avec une valeur initiale de "false", 
   //on pourra ultérieurement afficher un message à l'utilisateur si un produit est ajouté dans le "localStorage".
@@ -93,12 +94,12 @@ const existingProduct = productputinLocalStorage.find(product => product.product
 
 if (existingProduct) {
   const totalQuantity = Number(existingProduct.quantityProduct) + Number(Productchoices.quantityProduct);
-  if(total <= 100){
+  if(totalQuantity <= 100){
     // la variable LocalStorageNotification est définie sur false pour indiquer qu'aucun message n'a encore été affiché dans un certain contexte, afin de pouvoir afficher un message plus approprié ultérieurement.
     LocalStorageNotification = false;
     existingProduct.quantityProduct = Number(existingProduct.quantityProduct) + Number(Productchoices.quantityProduct);
-    alert(`La quantité du produit ${chosenProduct.name} de couleur ${Colorchosen} a été mise à jour.`);
-}
+    alert(`La quantité du produit ${chosenProduct} de couleur ${ColorChosen} a été mise à jour.`);
+}//Probléme de chosenProduct (use return)
 else{
 //si la quantité dépasse 100 on déchlenche une alerte et on demande à l'utilisateur de modifier la quantité
 LocalStorageNotification = false;
@@ -147,8 +148,8 @@ if(productputinLocalStorage){
 else{
     productputinLocalStorage = [];
     addProducttoStorage();
-    console.log(prouctputinLocalStorage);
-    // Mise à jour de la variable "messageLocalStorageUpdating" pour afficher un message de succès
+    console.log(productputinLocalStorage);
+    // Mise à jour de la variable "LocalStorageNotification" pour afficher un message de succès
 LocalStorageNotification = false;
 
 // Affichage d'un message d'alerte pour indiquer que le premier produit a été ajouté avec succès dans le panier
@@ -156,12 +157,13 @@ alert(`Félicitations ! Vous venez d'ajouter votre premier produit dans le panie
 }
  // si la variable LocalStorageNotification est vrai alors on affiche ce message pour confirmer l'ajout d'un produits avec ses détails :
  if(LocalStorageNotification){
-  alert(`Le produit ${chosenProduct.name} de couleur ${Colorchosen} a bien été ajouté au panier.`);
+  alert(`Le produit ${chosenProduct.name} de couleur ${ColorChosen} a bien été ajouté au panier.`);
   }
 }
 //si la couleur n'est pas choisie et/ou la quantité n'est pas valide(100>non valide<1)
 else {
   alert(`Veuillez sélectionner une couleur et une quantité comprise entre 1 et 100 (entier) pour ajouter le produit au panier !`);
+  console.log(alert)
 }
 });
 }
