@@ -30,5 +30,8 @@ productimage.setAttribute("src", product.imageUrl);
  article.appendChild(articleP);
   }
 })
-
+.catch(err => {
+  alert(`Veuillez nous excuser, mais une erreur est survenue et elle empêche l'affichage des produits de notre catalogue!`);
+  console.log("Erreur Fetch script.js", err);
+ })
 
