@@ -189,7 +189,8 @@ if (productId !== null) {
       console.log(alert);
     }
   });
-} else {
+}
+ else {
   console.log("L'id du produit est incorrect ou absent sur l'URL.");
   alert(`Le produit sélectionné n'a pas été trouvé !`);
   window.location.href = "index.html";
