@@ -1,5 +1,4 @@
 //récupérer l’id du produit ayant été cliqué sur la page d’accueil.
-
 const productId = new URLSearchParams(window.location.search).get("id");
 
 if (productId !== null) {
@@ -88,7 +87,7 @@ if (productId !== null) {
       let LocalStorageNotification = false;
 
       //function addproduct to localstorage avec tous les choices id, color, quantity
-      const addProducttoStorage = () => {
+      const SendProducttoStorage = () => {
         //SI le produit et la couleur sélectionnés par l'utilisateur existent déjà dans le "localStorage",
         // ALORS seule la quantité du produit sera modifiée en y ajoutant la quantité du produit sélectionné.
 
@@ -140,7 +139,7 @@ if (productId !== null) {
           "produit",
           JSON.stringify(productputinLocalStorage)
         );
-      }; //end of function addProducttoStorage
+      }; //end of function SendProducttoStorage
 
       //Nous créons une variable nommée "productputinLocalStorage" pour stocker les informations du produit enregistrées dans le localStorage.
       // Nous utilisons la méthode "getItem" de l'objet "localStorage" pour récupérer les clés et les valeurs stockées dans le localStorage sous la clé "produit".
@@ -152,19 +151,19 @@ if (productId !== null) {
       //La méthode "JSON.parse()" est une méthode JavaScript qui permet de convertir une chaîne de caractères JSON en objet JavaScript.
 
       //Si la clé "produit" existe déjà dans le localStorage, cela signifie qu'il y a des produits enregistrés.
-      //Dans ce cas, la fonction "addProducttoStorage()" est appelée pour ajouter de nouveaux produits à la liste existante,
+      //Dans ce cas, la fonction "SendProducttoStorage()" est appelée pour ajouter de nouveaux produits à la liste existante,
       //puis la liste de produits est affichée dans la console pour vérifier si le nouveau produit a été ajouté avec succès.
       if (productputinLocalStorage) {
-        addProducttoStorage();
+        SendProducttoStorage();
         console.log(productputinLocalStorage);
       }
       //Si le localStorage ne contient pas de clé nommée "produit", cela signifie qu'aucun produit n'a été enregistré auparavant.
       //Dans ce cas, une nouvelle liste vide est créée pour stocker les nouveaux produits,
-      //puis la fonction "addProducttoStorage()" est appelée pour ajouter des produits à cette liste.
+      //puis la fonction "SendProducttoStorage()" est appelée pour ajouter des produits à cette liste.
       //Enfin, la liste de produits est affichée dans la console pour vérifier si le produit a été ajouté avec succès.
       else {
         productputinLocalStorage = [];
-        addProducttoStorage();
+        SendProducttoStorage();
         console.log(productputinLocalStorage);
         // Mise à jour de la variable "LocalStorageNotification" pour afficher un message de succès
         LocalStorageNotification = false;
